@@ -18,22 +18,28 @@
 (def next-tetrimino-scheduled (atom nil))
 (def next-tetrimino-grace-ms 500)
 
+(defn- update-speed! [game-level]
+  (when-let [active-step-timer @step-timer]
+    (.clearTimeout js/window active-step-timer)
+    (reset! step-timer (.setInterval
+                        js/window
+                        (fn [] (keys/dispatch keys/down))
+                        (Math/floor (* initial-step-interval-ms
+                                       (Math/pow speed-up-factor game-level)))))))
+
+(defn play-next-tetrimino* [game-state]
+  (reset! game-state (-> @game-state
+                         (logic/drop-current identity)
+                         logic/play-next-tetrimino))
+  (reset! next-tetrimino-scheduled nil)
+  (update-speed! (:game-level @game-state)))
+
 (defn play-next-tetrimino
   [game-state before-game-state]
   (reset! next-tetrimino-scheduled
           (.setTimeout
            js/window
-           #(do
-              (reset! game-state (logic/play-next-tetrimino @game-state))
-              (reset! next-tetrimino-scheduled nil)
-              (when-let [active-step-timer @step-timer]
-                (.clearTimeout js/window active-step-timer)
-                (reset! step-timer (.setInterval
-                                    js/window
-                                    (fn [] (keys/dispatch keys/down))
-                                    (Math/floor (* initial-step-interval-ms
-                                                   (Math/pow speed-up-factor
-                                                             (:game-level @game-state))))))))
+           #(play-next-tetrimino* game-state)
            next-tetrimino-grace-ms))
   before-game-state)
 
@@ -42,9 +48,7 @@
     (.clearTimeout js/window @next-tetrimino-scheduled)
     (reset! next-tetrimino-scheduled (.setTimeout
                                       js/window
-                                      #(do
-                                         (reset! game-state (logic/play-next-tetrimino @game-state))
-                                         (reset! next-tetrimino-scheduled nil))
+                                      #(play-next-tetrimino* game-state)
                                       next-tetrimino-grace-ms))))
 
 (defn clear-all! []
