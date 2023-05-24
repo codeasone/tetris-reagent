@@ -14,7 +14,6 @@
         (= key-code keys/enter)
         (do
           (timers/establish-initial-step-timer!)
-          (timers/establish-speed-up-timer! game-state)
           (reset! game-state (logic/start-playing @game-state)))
 
         ;; ESC/ENTER are like PAUSE/RESUME - helpful during exploratory testing
