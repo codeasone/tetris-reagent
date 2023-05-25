@@ -6,13 +6,15 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "clean": "rm -rf ./resources/public/css ./resources/public/js",
     "compile:dev": "shadow-cljs compile app",
     "dev": "shadow-cljs watch app & yarn styles:dev",
     "release": "shadow-cljs release app && yarn styles:release",
     "serve": "shadow-cljs server",
     "styles:dev": "tailwindcss -i ./src/css/main.css -o resources/public/css/main.css --watch",
     "styles:release": "tailwindcss -i ./src/css/main.css -o resources/public/css/main.css --minify",
-    "deps:tree": "clj -X:deps tree :aliases '[:test]'"
+    "deps:tree": "clj -X:deps tree :aliases '[:test]'",
+    "play": "yarn clean && yarn release && yarn serve"
   },
   "devDependencies": {
     "react": "^18.2.0",

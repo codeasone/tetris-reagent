@@ -2,8 +2,7 @@
  :dev-http {3000 "resources/public"}
  :builds {:app
           {:target :browser
-           :dev {:compiler-options
-                 {:closure-defines {'goog.DEBUG true}}}
+           :dev {:compiler-options {:closure-defines {'goog.DEBUG true}}}
            :release {}
            :output-dir "resources/public/js"
            :asset-path "/js"
