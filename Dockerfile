@@ -9,6 +9,6 @@ RUN npm run styles:release
 
 FROM nginx:alpine
 COPY nginx.conf /etc/nginx/nginx
-COPY --from=build resources/public /usr/share/nginx/html
+COPY --from=build /app/resources/public /usr/share/nginx/html
 
 CMD ["nginx", "-g", "daemon off;"]
