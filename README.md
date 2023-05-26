@@ -7,14 +7,8 @@ Tetris implemented using [reagent](https://github.com/reagent-project/reagent) w
 ![Screenshot](./images/screenshot.png)
 
 ## Play
-To play the `release` build:
 
-```
-yarn install
-yarn run play
-```
-
-Then visit http://localhost:3000/
+You can play at: https://tetris-reagent.onrender.com (if it's a cold start it may take 20 seconds to start-up)
 
 Controls:
 
@@ -24,7 +18,28 @@ Controls:
 - `SPACE` to drop
 - `ESC` to pause
 
-Once you hit `Game Over` you can start again by reloading.
+Once you encounter a `Game Over` you can start again by reloading.
+
+## Packaging
+
+The release assets and nginx image only take up 16.33 MB.
+
+To build and run the Docker image locally:
+
+```
+docker build . -t tetris-reagent
+docker run -p 8080:80 tetris-reagent:latest
+```
+
+Then visit http://localhost:8080
+
+Every commit to `main` triggers a `build.yml` workflow that builds and pushes a `latest` image to [DockerHub](https://hub.docker.com/repository/docker/codeasone/tetris-reagent/general)
+
+__Tip:__ the [act](https://github.com/nektos/act) tool works great for evaluating and debugging GitHub flows locally:
+
+```
+act -s DOCKERHUB_USERNAME=<username> -s DOCKERHUB_TOKEN=<secret>
+```
 
 ## Development
 
@@ -36,7 +51,7 @@ Next, install the project dependencies with `yarn install`.
 
 This project uses `shadow-cljs` and the build to bring up is `:app`.
 
-If you usually start `shadow-cljs` in a separate terminal from your IDE then running `yarn dev` will watch for code changes and recompile/hot-reload as required.
+If you usually start `shadow-cljs` in a separate terminal from your IDE then running `yarn run dev` will watch for code changes and recompile/hot-reload as required.
 
 For Emacs users `.dir-locals.el` is included with settings that will help ensure a `shadow-cljs` nREPL is started automatically via `shadow.cljs.devtools.server.nrepl` when invoking `cider-jack-in-cljs`.
 
