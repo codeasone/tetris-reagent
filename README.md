@@ -1,5 +1,7 @@
 # tetris-reagent
 
+[![Build and Push](https://github.com/codeasone/tetris-reagent/actions/workflows/build.yml/badge.svg)](https://github.com/codeasone/tetris-reagent/actions/workflows/build.yml)
+
 Tetris implemented using [reagent](https://github.com/reagent-project/reagent) with game-logic from [tetris-clj](https://github.com/codeasone/tetris-clj).
 
 ![Screenshot](./images/screenshot.png)
