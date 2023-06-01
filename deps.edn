@@ -1,6 +1,6 @@
 {:paths ["src/cljs" "resources"]
 
- :deps {org.clojars.codeasone/tetris-clj {:mvn/version "0.1.4"}
+ :deps {org.clojars.codeasone/tetris-clj {:mvn/version "0.1.5-SNAPSHOT"}
         ;; org.clojars.codeasone/tetris-clj {:local/root "../tetris-clj"}
         reagent/reagent {:mvn/version "1.2.0"}}
 
