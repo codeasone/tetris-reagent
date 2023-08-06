@@ -49,6 +49,8 @@ If not just make sure you have compatible `java`, `clojure`, and `nodejs` versio
 
 Next, install the project dependencies with `yarn install`.
 
+Then ensure the styles are available by invoking `yarn run styles:dev`.
+
 This project uses `shadow-cljs` and the build to bring up is `:app`.
 
 If you usually start `shadow-cljs` in a separate terminal from your IDE then running `yarn run dev` will watch for code changes and recompile/hot-reload as required.
